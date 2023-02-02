@@ -1,0 +1,41 @@
+[
+  {
+    "id": "",
+    "name": "receta1",
+    "type": "postre",
+    "img": "",
+    "flavors": [
+      { "flavor": "aaaaa", "percent": "1" },
+      { "flavor": "bbbb", "percent": "2" },
+      { "flavor": "cccc", "percent": "3" },
+      { "flavor": "dddd", "percent": "4" },
+      { "flavor": "eeee", "percent": "5" }
+    ]
+  },
+  {
+    "id": "",
+    "name": "receta2",
+    "type": "frutal",
+    "img": "",
+    "flavors": [
+      { "flavor": "pooooo", "percent": "2" },
+      { "flavor": "", "percent": "" },
+      { "flavor": "", "percent": "" },
+      { "flavor": "", "percent": "" },
+      { "flavor": "", "percent": "" }
+    ]
+  },
+  {
+    "id": "0.wk1tlxy5orkld5uwh5g",
+    "name": "receta3",
+    "type": "nada",
+    "img": "",
+    "flavors": [
+      { "flavor": "poppra", "percent": "3" },
+      { "flavor": "ioñ.li", "percent": "3" },
+      { "flavor": "dadsfsfa", "percent": "2" },
+      { "flavor": "1344", "percent": "2" },
+      { "flavor": "", "percent": "" }
+    ]
+  }
+]
