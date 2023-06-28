@@ -165,6 +165,10 @@ const recipesController = {
     fs.writeFileSync("./src/database/recipesJson.json", jsonRecipes);
     
     // Nueva validacion de si los aromas existen 
+    // Funciona, solo hay que decidir que hacer, ya que en este ejemplo, 
+    // solo consulto si existe flavorsExisten y envio un res.send simplemente
+    // habria q agregar la logica en ese punto
+    // console.log(req.body.flavors)
   //   let flavorsExisten = false;
   //   for (let i=0; i<req.body.flavors.length; i++){
   //     for(let x=1; x<flavors.length; x++){
@@ -225,7 +229,7 @@ const recipesController = {
         },
       ],
     };
-    console.log(req.body)
+    // console.log('linea 230 recipescontroller: ', req.body)
     // Agrego logica de create
     let recipesStorage = fs.readFileSync("./src/database/recipesJson.json", {
       encoding: "utf-8",

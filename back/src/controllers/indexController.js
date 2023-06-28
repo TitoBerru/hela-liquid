@@ -16,7 +16,7 @@ const indexController = {
         recipes = sortJSON(recipes, 'name', 'asc');
         cmvorder = sortJSON(cmv, 'createdAt', 'desc'); //order by
         res.render('index', { recipes: recipes, cmv:cmvorder });
-       console.log(recipes)
+    //    console.log(recipes)
     }
 
 };
