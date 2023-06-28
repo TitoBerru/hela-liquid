@@ -28,13 +28,28 @@
             <% if (recipeToEdit.flavors) { %>
                 <% for( let i=0; i < recipeToEdit.flavors.length; i++ ) { %>
                     <label for="">Aroma <%=[i+1] %> </label>
-                    <input type="text" name=flavors <%=recipeToEdit.flavors[i]  %> "
+                    
+                    <% if (recipeToEdit.flavors[i].flavor != "") { %>
+                        <input type="text" name=flavors <%=recipeToEdit.flavors[i]  %> "
                         value="<%= recipeToEdit.flavors[i].flavor %>">
-                    <label for="">porcentaje</label>
-                    <input type="number" name="percent" value="<%= recipeToEdit.flavors[i].percent %>">
-                    <br>
+                        <label for="">porcentaje</label>
+                        <input type="number" name="percent" value="<%= recipeToEdit.flavors[i].percent %>">
+                        <br>
+                         <% } else { %>
 
-                    <% } %>
+                            <label for=""></label>
+                <select class="form-control-sm" id=`{flavor$[i]}` name="flavors">
+                                <% for( let i = 0; i < flavors.length; i++ ) { %>
+                                    <option value="<%= flavors[i].name %>"><%= flavors[i].name %></option>
+                                <% } %>
+                            </select>
+                            <label for="">porcentaje</label>
+                            <input type="number" name="percent">
+                            <br>
+
+                            <% } %>
+                            <% } %>
+                
 
 
                         <% } %>

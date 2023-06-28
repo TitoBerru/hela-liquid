@@ -20,14 +20,13 @@
             <label for="">Tipo</label>
             <input type="text" name="type" value="<%= recipeToEdit.type %>">
             <br>
-            <label for="">Descripcion</label>
+            <label for="">Descripcion
+                
+            </label>
             <input type="text" name="description" value="<%= recipeToEdit.description %>">
             <br>
             <% if (recipeToEdit.flavors) { %>
                 <% for( let i=0; i < recipeToEdit.flavors.length; i++ ) { %>
-
-    
-
                     <label for="">Aroma <%=[i+1] %> </label>
                     <input type="text" name=flavors <%=recipeToEdit.flavors[i]  %> "
                         value="<%= recipeToEdit.flavors[i].flavor %>">

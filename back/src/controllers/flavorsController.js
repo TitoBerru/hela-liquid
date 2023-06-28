@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const recipesFilePath = path.join(__dirname, "../dataBase/recipesJson.json");
 const flavorsFilePath = path.join(__dirname, "../dataBase/flavorsJson.json");
-const sortJSON=require("./../xtras/sort")
+const sortJSON=require("./../xtras/sort");
 let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
 let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
 
@@ -51,7 +51,7 @@ const flavorsController = {
     flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
     const searchQuery = req.query.searchFlavor.toUpperCase();
     let flavorFound = [];
-    for (let i = 0; i < flavors.length; i++) {
+    for (let i = 1; i < flavors.length; i++) {
       flavors[i].name.includes(searchQuery) ? flavorFound.push(flavors[i]) : "";
     }
     flavorFound = sortJSON(flavorFound, 'name', 'asc'); //order by
@@ -110,19 +110,45 @@ const flavorsController = {
 
   deleteFlavor: function (req, res) {
     flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
+    recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
     let idFlavorToChange = req.params.id;
-    let flavorToEdit = [];
-    for (let i = 0; i < flavors.length; i++) {
-      if (flavors[i].idFlavor == idFlavorToChange) {
-        indexToChange = flavors.indexOf(flavors[i]);
-        flavorToEdit = flavors[i];
-      }
+    
+    // Find recipes whit flavor to delete.
+    const flavorToShow=[];
+    const recipesUsed= [];
+    for (let i=0; i<flavors.length; i++){
+      if (flavors[i].idFlavor == req.params.id){
+          flavorToShow.push(flavors[i])
+        }
+       }
+    for (let i=0; i<recipes.length; i++){
+      recipes[i].flavors.forEach(flavor => 
+        (flavor.flavor.includes(flavorToShow[0].name)? recipesUsed.push(recipes[i].name):"")
+      )
     }
-    flavors = flavors.filter((flavors) => flavors.idFlavor != req.params.id);
+    
+
+    if(recipesUsed.length > 0){
+      //falta sacar duplicados...
+      const dataArr = new Set(recipesUsed);
+      resultRecipesUsed = [...dataArr];
+    // Termina sacar duplicados
+
+      res.render("flavors/flavorDeleteIsUsed", {
+        flavors : flavorToShow,
+        resultRecipesUsed : resultRecipesUsed
+      });
+    }else{
+      //Esto lo comento para probar lo de arriba, pero funciona el delete perfecto!
+      flavors = flavors.filter((flavors) => flavors.idFlavor != req.params.id);
     const jsonFlavors = JSON.stringify(flavors);
     fs.writeFileSync("./src/database/flavorsJson.json", jsonFlavors);
     res.redirect("/flavors");
-  },
+    }
+    
+    
+    
+   },
 
   detail: function (req, res) {
     recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
@@ -137,17 +163,12 @@ const flavorsController = {
     for (let i=0; i<recipes.length; i++){
       recipes[i].flavors.forEach(flavor => 
         (flavor.flavor.includes(flavorToShow[0].name)? recipesUsed.push(recipes[i].name):"")
-
-
-      
       )
     }
     // duplicated takeoff!!
     const dataArr = new Set(recipesUsed);
     let resultRecipesUsed = [...dataArr];
-      
 
-  
     res.render("flavors/flavorDetail", {
       flavors : flavorToShow,
       resultRecipesUsed : resultRecipesUsed

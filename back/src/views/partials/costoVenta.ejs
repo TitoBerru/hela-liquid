@@ -1,27 +1,30 @@
-<div class="card card-title text-dark bg-primary mb-3">
-    <h5>Costo de ultima venta</h5>
-    <section class="card-body">
+<!-- <div class="card card-title text-dark bg-primary mb-3"> -->
+    <div>
+    <h4>Costo de ultima venta</h4>
+    <section>
         <% if (cmv != "") { %>
-         
+        <card>
+        <p>Cliente:  <%= cmv[0].customer %> </p>
+    </card>
+        <p>Receta:  <%= cmv[0].recipe %> </p>
+        <p class="card-text">Esencia:  <%= (cmv[0].totalEsencias).toFixed(0) %>
+        </p>
+        <p>Base:  <%= (cmv[0].Vg + cmv[0].Pg).toFixed(0) %>
+        </p>
+        <p>Nico:  <%= (cmv[0].nico).toFixed(0) %>
+        </p>
+        <p>Frasco:  <%= (cmv[0].frasco).toFixed(0) %>
+        </p>
         
-        <p class="card-text">Esencia: <%= cmv[0].totalEsencias %>
-        </p>
-        <p>Base: <%= cmv[0].Vg + cmv[0].Pg %>
-        </p>
-        <p>Nico <%= cmv[0].nico %>
-        </p>
-        <p>Frasco <%= cmv[0].frasco %>
-        </p>
-        <p>Cliente: <%= cmv[0].customer %>
-        </p>
-    </section>
-    <h6>Costo total : <%=(cmv[0].totalEsencias+cmv[0].Vg + cmv[0].Pg+cmv[0].nico+cmv[0].frasco) *cmv[0].quantity%>
-    </h6>
-    <h6>Precio Venta: <%= cmv[0].precioVenta %>
-    </h6>
-    <h5>Ganacia: <%=cmv[0].precioVenta - ((cmv[0].totalEsencias+cmv[0].Vg + cmv[0].Pg+cmv[0].nico+cmv[0].frasco)*cmv[0].quantity) %>
-    </h5>
+    
+    <p>Costo total : <%=((cmv[0].totalEsencias+cmv[0].Vg + cmv[0].Pg+cmv[0].nico+cmv[0].frasco) *cmv[0].quantity).toFixed(0)%> </p>
+    
+    <p>Precio Venta: <%= cmv[0].precioVenta %></p>
+    
+    <p>Ganacia:  <%=(cmv[0].precioVenta - ((cmv[0].totalEsencias+cmv[0].Vg + cmv[0].Pg+cmv[0].nico+cmv[0].frasco)*cmv[0].quantity)).toFixed() %> </p>
+ 
     <% } %>
+</section>
 </div>
 <!-- copio  -->
 

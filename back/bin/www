@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+const colours = require("../src/xtras/colours");
 var app = require('../app');
 var debug = require('debug')('back:server');
 var http = require('http');
@@ -38,6 +38,7 @@ function normalizePort(val) {
 
   if (isNaN(port)) {
     // named pipe
+    console.log(port)
     return val;
   }
 
@@ -87,4 +88,10 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log(
+    colours.bg.white,
+    colours.fg.red,
+    "Server run on port " + port + " ✅ ",
+    colours.reset
+ );
 }

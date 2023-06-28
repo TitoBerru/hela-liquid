@@ -10,9 +10,10 @@ router.get('/edit/:id', flavorsController.edit)
 router.get('/detail/:id', flavorsController.detail)
 
 /* PUT POST AND DELETE */
-router.put('/edit/:id', flavorsController.updateFlavor)
-router.delete('/delete/:id', flavorsController.deleteFlavor)
+router.put('/edit/:id', flavorsController.updateFlavor);
 router.post('/create', flavorsController.storeFlavors);
+router.delete('/delete/:id', flavorsController.deleteFlavor);
+
 
 
 

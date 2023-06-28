@@ -6,14 +6,15 @@ const recipesController = require ('../controllers/recipesController')
 router.get('/', recipesController.list);
 router.get('/search', recipesController.search);
 router.get('/create', recipesController.create);
-router.get('/edit/:id', recipesController.edit)
+router.get('/edit/:id', recipesController.edit);
+router.get('/detail/:id', recipesController.detail)
 
-//Put Recipes */
+//Edit Recipes - method: PUT 
 router.put('/edit/:id', recipesController.updateRecipe)
 
-//delete Recipes */
+//delete Recipes 
 router.delete('/delete/:id', recipesController.deleteRecipe)
 
-// POST recipes
+// Create recipes - Method: POST 
 router.post('/create', recipesController.storeRecipe);
 module.exports = router;

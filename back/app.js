@@ -8,7 +8,7 @@ const methodOverride = require("method-override");
 const app = express();
 const path = require("path");
 const createError = require("http-errors");
-const colours = require("./src/xtras/colours"); //add colors to console
+ //add colors to console
 
 //routes Constants
 const indexRouter = require("./src/routes/indexRoutes");
@@ -24,15 +24,15 @@ const costsRouter = require("./src/routes/costsRoutes")
 // end of Consts
 
 //server start
-app.listen(3000, () => {
-  // console.log(colours.fg.yellow, 'Servidor corriendo terminal 3000 ❤ 😂', colours.reset)
-  console.log(
-    colours.bg.white,
-    colours.fg.red,
-    "Server run on port 3000",
-    colours.reset
-  );
-});
+// app.listen(3000, () => {
+//   // console.log(colours.fg.yellow, 'Servidor corriendo terminal 3000 ❤ 😂', colours.reset)
+//   console.log(
+//     colours.bg.white,
+//     colours.fg.red,
+//     "Server run on port 3000",
+//     colours.reset
+//   );
+// });
 
 // view engine setup
 app.set("views", path.join(__dirname, "src/views"));

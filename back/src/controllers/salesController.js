@@ -1,8 +1,8 @@
 const salesController = {
     
     'list' : function (req, res){
-       
-        res.render('sales');
+    //    res.send({status: "ok", nombre:'hola'});
+       res.render('sales');
     }
 
 };

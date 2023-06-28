@@ -52,27 +52,7 @@ const recipesController = {
     res.render("./recipe/edit", { recipeToEdit: recipeToEdit, flavors:flavors });
   },
   detail: function(req, res){
-    //Traigo de Flavors
-    recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
-    flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
-    const recipeToShow=[];
-    const recipesUsed= [];
-    for (let i=0; i<recipes.length; i++){
-      if (recipes[i].idRecipe == req.params.id){
-          recipeToShow.push(recipes[i])
-        }
-       }
-    // for (let i=0; i<recipes.length; i++){
-    //   recipes[i].flavors.forEach(flavor => 
-    //     (flavor.flavor.includes(flavorToShow[0].name)? recipesUsed.push(recipes[i].name):"")
-    //   )
-    // }
-    // duplicated takeoff!!
-    // const dataArr = new Set(recipesUsed);
-    // let resultRecipesUsed = [...dataArr];
-     
-    res.render("recipe/recipeDetail", { recipeToShow : recipeToShow });
-    // res.send('llgo por detail')
+    res.send('llego por edit')
   },
   storeRecipe: function (req, res) {
     recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));

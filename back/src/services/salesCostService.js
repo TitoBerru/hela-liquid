@@ -128,8 +128,10 @@ const salesCostService ={
       let jsonSalesStorageJson = JSON.stringify(jsonSalesStorage); // vuelvo a JSON
       fs.writeFileSync("./src/database/salesJson.json", jsonSalesStorageJson); //SobreEscribo el archivo
       // Termina logica de archivo Json
-        console.log(documentoDeVenta)
-        console.log(documentoCostoDeVenta)
+
+      
+        // console.log(documentoDeVenta)
+        // console.log(documentoCostoDeVenta)
         
       return documentoCostoDeVenta, documentoDeVenta;
          
