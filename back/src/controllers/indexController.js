@@ -11,12 +11,13 @@ let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
 
 const indexController = {
     
+    
     'index' : function (req, res){
         let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
         recipes = sortJSON(recipes, 'name', 'asc');
         cmvorder = sortJSON(cmv, 'createdAt', 'desc'); //order by
         res.render('index', { recipes: recipes, cmv:cmvorder });
-    //    console.log(recipes)
+        // console.log(cmv)
     }
 
 };
