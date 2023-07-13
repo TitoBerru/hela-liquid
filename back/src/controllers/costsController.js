@@ -32,7 +32,8 @@ const costController = {
 
     salesCostService.base(customer,recetaId,ml,nico, cant, price);
     let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
-    let cmvorder = sortJSON(cmv, 'createdAt', 'desc'); //order by
+    let cmvorder = sortJSON(cmv, 'createdAt', 'desc');
+    console.log(cmvorder) //order by
     res.render('index', {recipes:recipes, cmv:cmvorder});
 
   },

@@ -89,7 +89,7 @@ const salesCostService ={
                 }
             }
         }
-        documentoCostoDeVenta.createdAt=new Date().toGMTString();
+        documentoCostoDeVenta.createdAt=new Date().toLocaleString();
         documentoCostoDeVenta.customer = customer;
         documentoCostoDeVenta.ml=ml;
         documentoCostoDeVenta.quantity = cant;

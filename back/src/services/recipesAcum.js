@@ -11,19 +11,18 @@ let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
 let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
 let sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
 
-const resultado = [];
+let resultado = [];
+let resultadoPorCliente = []
 const recipesAcum ={
 
     acumByRecipe: (recipeid)=> {
-       const resultado = sales[0];
-    //    console.log(resultado)
+         resultado = sales.filter((sales) => sales.recipe == recipeid)
+         resultadoEnCantidades = resultado.length
+         resultadoPorCliente = resultado[resultado.length-1].customer
+       console.log(resultadoPorCliente)
     }
     
 }
-
-
-
-
-
 module.exports = recipesAcum;
-recipesAcum.acumByRecipe(89);
+
+recipesAcum.acumByRecipe('TRIBECA');

@@ -10,8 +10,40 @@
 </head>
 <body>
     <%- include('partials/header.ejs') %> 
-    <h1>Ventas</h1>
-    <h5>Funcionalidad en progreso de desarrollo...</h5>
     <%- include('partials/bootstrapScript.ejs')  %> 
+    <section class="mainSectionSales">
+  
+      <div class="one">
+        <ul class="nav flex-column">
+            <!-- <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Active</a>
+            </li> -->
+            <li class="nav-item"><h4>
+            
+              <a class="nav-link" href="/Sales/salesForCustomer">Cliente</a>
+            </h4>
+            </li>
+            <li class="nav-item">
+              <h4><a class="nav-link" href="/Sales/salesForMonth">Mes</a></h4>
+            </li>
+            <li class="nav-item">
+                <h4><a class="nav-link" href="/Sales/salesForYear">Año</a></h4>
+            </li>
+            <li class="nav-item">
+                <h4><a class="nav-link" href="/Sales/salesForRecipe">Receta</a></h4>
+            </li>
+            <li class="nav-item">
+                <h4><a class="nav-link" href="/Sales/salesForFlavor">Aroma</a></h4>
+            </li>
+           
+          </ul>
+      </div>
+      <div class="two">
+        Hola2
+    
+        </div>
+
+    </section>
+      
 </body>
 </html>
