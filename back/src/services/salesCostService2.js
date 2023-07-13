@@ -28,7 +28,7 @@ const salesCostService ={
         let documentoCostoDeVenta = {}; // costos de todo el docu de Ventas.
         let esenciasDeReceta=[]; // EN ESENCIAS DE RECETA GUARDO LAS ESENCIAS UTILIZADAS EN LA RECETA
         documentoDeVenta.IdDocumentoDeVenta= uid();
-        documentoDeVenta.createdAt=new Date().toLocaleDateString();
+        documentoDeVenta.createdAt=new Date().toLocaleString();
         documentoDeVenta.customer = customer;
         documentoDeVenta.nico = nico;
         documentoDeVenta.ml=ml;
@@ -77,7 +77,7 @@ const salesCostService ={
                 }
             }
         }
-        documentoCostoDeVenta.createdAt=new Date().toLocaleDateString();
+        documentoCostoDeVenta.createdAt=new Date().toLocaleString();
         documentoCostoDeVenta.customer = customer;
         documentoCostoDeVenta.ml=ml;
         documentoCostoDeVenta.quantity = cant;

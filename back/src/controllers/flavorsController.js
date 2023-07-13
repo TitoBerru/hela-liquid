@@ -28,7 +28,7 @@ const flavorsController = {
       price: req.body.price,
       costType: req.body.costType,
       stock: req.body.stock,
-      createdAt: new Date().toLocaleDateString(),
+      createdAt: new Date().toLocaleString(),
       provider: req.body.provider
     };
     // read the json file
@@ -81,8 +81,10 @@ const flavorsController = {
       }
     }
     flavors = flavors.filter((flavor) => flavor.idFlavor != req.params.id);
+    // let flavorRescue = flavors.filter((flavor) => flavor.idFlavor == req.params.id);
     const jsonFlavors = JSON.stringify(flavors);
     fs.writeFileSync("./src/database/flavorsJson.json", jsonFlavors);
+    
     let flavorModify = {
       idFlavor: req.params.id,
       name: req.body.name.toUpperCase(),
@@ -90,7 +92,7 @@ const flavorsController = {
       price: req.body.price.toUpperCase(),
       costType: req.body.costType,
       stock: req.body.stock,
-      modifiedAt: new Date().toLocaleDateString(),
+      modifiedAt: new Date().toLocaleString(),
       provider: req.body.provider
     };
     let flavorStorage = fs.readFileSync("./src/database/flavorsJson.json", {

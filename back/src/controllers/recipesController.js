@@ -86,7 +86,7 @@ const recipesController = {
       type: req.body.type.toUpperCase(),
       description: req.body.description.toUpperCase(),
       img: "",
-      createdAt: new Date().toLocaleDateString(),
+      createdAt: new Date().toLocaleString(),
       flavors: [
         {
           flavor: req.body.flavor1.toUpperCase(),
@@ -193,7 +193,7 @@ const recipesController = {
       description: req.body.description.toUpperCase(),
       img: "",
       createdAt: recipeToEdit.createdAt,
-      modifiedAt: new Date().toLocaleDateString(),
+      modifiedAt: new Date().toLocaleString(),
       flavors: [
         {
           flavor: req.body.flavors[0].toUpperCase(),
