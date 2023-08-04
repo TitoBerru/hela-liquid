@@ -69,9 +69,9 @@ const salesCostService ={
         
         // items que guardan info en documento de Venta y documento de costo de vta
         // CALCULAR EL VALOR POR ML DE NICO, VG, PG
-        documentoCostoDeVenta.nico = (documentoDeVenta.nico * documentoDeVenta.ml/100)*costs.Nico;
-        documentoCostoDeVenta.Vg = documentoDeVenta.totalVg * costs.VG;
-        documentoCostoDeVenta.Pg = documentoDeVenta.restoPgPuro * costs.PG;
+        documentoCostoDeVenta.nico = Math.round((documentoDeVenta.nico * documentoDeVenta.ml/100)*costs.Nico);
+        documentoCostoDeVenta.Vg = Math.round(documentoDeVenta.totalVg * costs.VG);
+        documentoCostoDeVenta.Pg = Math.round(documentoDeVenta.restoPgPuro * costs.PG);
         documentoCostoDeVenta.totalEsencias = 0;
         // Precio del envase
        documentoCostoDeVenta.frasco = costs.Frasco100;
@@ -83,8 +83,8 @@ const salesCostService ={
               
                 if (flavors[x].name == esenciasUsadas[i]){
                   
-                    documentoCostoDeVenta[`esencia${i}`] = (esenciasUsadas[i+1] * ml /100) * flavors[x].price;
-                    documentoCostoDeVenta.totalEsencias += (esenciasUsadas[i+1] * ml /100) * flavors[x].price; 
+                    documentoCostoDeVenta[`esencia${i}`] = Math.round((esenciasUsadas[i+1] * ml /100) * flavors[x].price);
+                    documentoCostoDeVenta.totalEsencias += Math.round((esenciasUsadas[i+1] * ml /100) * flavors[x].price); 
                    
                 }
             }

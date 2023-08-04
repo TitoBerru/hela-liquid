@@ -9,20 +9,21 @@ const sortJSON=require("../xtras/sort")
 let costs = JSON.parse(fs.readFileSync(costsFilePath, "utf-8"));
 let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
 let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
-let sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
+const sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
 
 let resultado = [];
-let resultadoPorCliente = []
-const recipesAcum ={
+let recipesAcum ={
 
     acumByRecipe: (recipeid)=> {
+          sales;
          resultado = sales.filter((sales) => sales.recipe == recipeid)
          resultadoEnCantidades = resultado.length
-         resultadoPorCliente = resultado[resultado.length-1].customer
-       console.log(resultadoPorCliente)
+       return resultadoEnCantidades;
     }
     
+
 }
 module.exports = recipesAcum;
 
-recipesAcum.acumByRecipe('TRIBECA');
+recipesAcum.acumByRecipe('ANANANA');
+//console.log('console log linea 29 de recipesAcum.js: '  + resultadoEnCantidades)

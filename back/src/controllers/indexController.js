@@ -15,9 +15,13 @@ const indexController = {
     'index' : function (req, res){
         let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
         recipes = sortJSON(recipes, 'name', 'asc');
-        cmvorder = sortJSON(cmv, 'createdAt', 'desc'); //order by
+        
+        //console.log('console.log de linea 19 de index: '+ cmv[cmv.length-1].customer);
+        
+        // cmvorder = sortJSON(cmv, 'createdAt', 'desc'); //order by
+        cmvorder = [cmv.at(-1)] // Envio solo el ultimo elemento
         res.render('index', { recipes: recipes, cmv:cmvorder });
-        // console.log(cmv)
+        
     }
 
 };

@@ -4,6 +4,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
+    "start-normal": "node ./bin/www",
     "start": "node --watch ./bin/www"
   },
   "dependencies": {

@@ -4,13 +4,9 @@ const recipesFilePath = path.join(__dirname, "../dataBase/recipesJson.json");
 const flavorsFilePath = path.join(__dirname, "../dataBase/flavorsJson.json");
 const costsFilePath = path.join(__dirname, "../dataBase/costsJson.json");
 const cmvFilePath = path.join(__dirname, "../dataBase/cmvJson.json");
-const sortJSON=require("./../xtras/sort")
 const salesCostService = require ("./../services/salesCostService")
 let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
-let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
-let costs = JSON.parse(fs.readFileSync(costsFilePath, "utf-8"));
-let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
-
+let cmvorder = []
 const costController = {
 
   index: function(req, res){
@@ -32,8 +28,9 @@ const costController = {
 
     salesCostService.base(customer,recetaId,ml,nico, cant, price);
     let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
-    let cmvorder = sortJSON(cmv, 'createdAt', 'desc');
-    console.log(cmvorder) //order by
+    cmvorder = [cmv.at(-1)]
+    //let cmvorder = sortJSON(cmv, 'createdAt', 'desc');
+    //console.log(cmvorder) //order by
     res.render('index', {recipes:recipes, cmv:cmvorder});
 
   },
