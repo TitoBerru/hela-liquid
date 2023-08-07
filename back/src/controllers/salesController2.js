@@ -9,10 +9,13 @@ const recipesAcum = require("./../services/recipesAcum");
 const salesForMonth = require("./../services/salesForMonthService");
 const convertToISODate = require("./../xtras/convertToIsoDate");
 
+
 let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
 let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
 let sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
 let setSalesForMonth = [];
+
+
 
 const salesController = {
   list: function (req, res) {
@@ -24,51 +27,29 @@ const salesController = {
     // res.render('sales')
   },
   month: function (req, res) {
-    let cmv = JSON.parse(fs.readFileSync(cmvFilePath, "utf-8"));
-    const result = sumTotalEsenciasByMonth(cmv);
-    function isValidDate(date) {
-      return date instanceof Date && !isNaN(date);
-    }
-
-    function sumTotalEsenciasByMonth(data) {
-      const result = {};
-
-      data.forEach((item) => {
-        const createdAtDate = new Date(convertToISODate(item.createdAt));
-        if (isValidDate(createdAtDate)) {
-          const month = createdAtDate.getMonth() + 1; // Sumar 1 porque los meses en JavaScript son base 0 (enero es 0)
-
-          if (result[month]) {
-            result[month].cost +=
-              (item.nico +
-                item.Vg +
-                item.Pg +
-                item.totalEsencias +
-                item.frasco) *
-              item.quantity;
-            result[month].precioVenta += Number(item.precioVenta);
-          } else {
-            result[month] = {
-              cost:
-                (item.nico +
-                  item.Vg +
-                  item.Pg +
-                  item.totalEsencias +
-                  item.frasco) *
-                item.quantity,
-              precioVenta: Number(item.precioVenta),
-            };
-          }
+    let TotalForMonthDetail =[];
+    let totalForMonthCost = 0;
+        function salesForMontDetail(month) {
+            return cmv.filter(item => {
+                const createdAtDate = new Date(convertToISODate(item.createdAt));
+                
+                if (createdAtDate.getMonth() === month){
+                    TotalForMonthDetail.push(item)
+                    console.log('esto llega desde el controlador de sales, linea 37: ', TotalForMonthDetail )
+                };
+            });     
+        
         }
-      });
+        for (let i=0; i<=1; i++){}
+        salesForMontDetail(7)
+        
+        totalForMonthCost = TotalForMonthDetail.reduce((acum, actual) => acum + (actual.nico +actual.Vg + actual.Pg + actual.totalEsencias + actual.frasco)*actual.quantity,0)
+        console.log('consle desde controller  salesController linea 45: ',totalForMonthCost)
+        // return totalForMonthCost;
+       
 
-      return result;
-    }
-
-    console.log("linea 53 sales controller ", result);
-
-    res.render("./Sales/salesForMonth", { result: result });
-    // res.send({ result });
+        // res.render("./Sales/salesForMonth", sales:sales);
+        res.send({totalForMonthCost});
   },
 
   year: function (req, res) {
