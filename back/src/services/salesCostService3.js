@@ -1,32 +1,38 @@
 const path = require("path");
 const fs = require("fs");
 
+const loadData = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
+//rutas de JSONs
+const dataPaths = {
+    baseCosts: path.join(__dirname, "../dataBase/costsJson.json"),
+    recipes: path.join(__dirname, "../dataBase/recipesJson.json"),
+    flavors: path.join(__dirname, "../dataBase/flavorsJson.json"),
+    cmvStorage: path.join(__dirname, "../dataBase/cmvJson.json"),
+    salesStorage: path.join(__dirname, "../dataBase/salesJson.json"),
+};
 
+// Cargar datos de los archivos JSON
+const loadedData = Object.fromEntries(
+    Object.entries(dataPaths).map(([key, filePath]) => [key, loadData(filePath)])
+);
+// Funciones auxiliares
+const calculateTotalVG = (ml) => (80 * ml) / 100;
+const calculateTotalPG = (ml) => ml - calculateTotalVG(ml);
 
+const uid = () => Math.random().toString(36) + Date.now().toString(36);
 
-const costsFilePath = path.join(__dirname, "../dataBase/costsJson.json");
-const recipesFilePath = path.join(__dirname, "../dataBase/recipesJson.json");
-const flavorsFilePath = path.join(__dirname, "../dataBase/flavorsJson.json");
-// const cmvFilePath = path.join(__dirname, "../dataBase/cmvJson.json");
-const sortJSON=require("../xtras/sort")
-let costs = JSON.parse(fs.readFileSync(costsFilePath, "utf-8"));
-let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
-let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
-
-let total = 100;
-let vg = 80
-let pg = 20
+const updateStorage = (filePath, newData) => {
+    const storageData = loadData(filePath);
+    storageData.push(newData);
+    fs.writeFileSync(filePath, JSON.stringify(storageData));
+};
 
 const salesCostService ={
     
     base: (customer,recetaid, ml , nico, cant)=> {
         // Unidad de medida en ML para todo!!!!!!
-        //Genero UID *** el mismo para los 2 doc. Docu de venta y CMV de venta
-        function uid() {
-            return Math.random().toString(36) + Date.now().toString(36);
-          }
-        //usar el mismo uid
+        
         recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
         let costs = JSON.parse(fs.readFileSync(costsFilePath, "utf-8"));
         let documentoDeVenta = {}; //data del docu de venta, customer, cantidades, etc.

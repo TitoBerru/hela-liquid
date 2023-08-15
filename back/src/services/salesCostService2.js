@@ -34,6 +34,9 @@ const salesCostService ={
         documentoDeVenta.ml=ml;
         documentoDeVenta.totalVg= 80*ml/100;
         documentoDeVenta.quantity = cant;
+        documentoDeVenta.precioVenta = price;
+
+        // comienzo a recorrer arrays
         for(let i=0; i<recipes.length; i++){
             if(recipes[i].idRecipe == recetaid){
                 esenciasDeReceta.push(recipes[i].flavors);
@@ -56,24 +59,33 @@ const salesCostService ={
             if(esencia.flavor != ""){esenciasUsadas.push(esencia.flavor, esencia.percent)}
         })
         
-        let numeroDeSabor= 1
+        let numeroDeSabor= 1;
         for(i=0; i<esenciasUsadas.length; i+=2){
             
             documentoDeVenta[`esencia${numeroDeSabor}`]=esenciasUsadas[i];
             documentoDeVenta[`porcentaje${numeroDeSabor}`]=esenciasUsadas[i+1];
             numeroDeSabor +=1;
         }
+        
+        // items que guardan info en documento de Venta y documento de costo de vta
         // CALCULAR EL VALOR POR ML DE NICO, VG, PG
-        documentoCostoDeVenta.nico = (documentoDeVenta.nico * documentoDeVenta.ml/100)*costs.Nico;
-        documentoCostoDeVenta.Vg = documentoDeVenta.totalVg * costs.VG;
-        documentoCostoDeVenta.Pg = documentoDeVenta.restoPgPuro * costs.PG;
+        documentoCostoDeVenta.nico = Math.round((documentoDeVenta.nico * documentoDeVenta.ml/100)*costs.Nico);
+        documentoCostoDeVenta.Vg = Math.round(documentoDeVenta.totalVg * costs.VG);
+        documentoCostoDeVenta.Pg = Math.round(documentoDeVenta.restoPgPuro * costs.PG);
+        documentoCostoDeVenta.totalEsencias = 0;
+        // Precio del envase
+       documentoCostoDeVenta.frasco = costs.Frasco100;
         // BUSCAR PRECIOS DE LAS ESENCIAS UTILIZADAS.
         
         for(let i = 0; i<esenciasUsadas.length; i++){ //recorro aray de esencias usadas
             
             for(let x = 1; x<flavors.length; x++){ //array comienza con 1, por flavor 0 es null;
+              
                 if (flavors[x].name == esenciasUsadas[i]){
-                    documentoCostoDeVenta[`esencia${x}`] = (esenciasUsadas[i+1] * ml /100) * flavors[x].price
+                  
+                    documentoCostoDeVenta[`esencia${i}`] = Math.round((esenciasUsadas[i+1] * ml /100) * flavors[x].price);
+                    documentoCostoDeVenta.totalEsencias += Math.round((esenciasUsadas[i+1] * ml /100) * flavors[x].price); 
+                   
                 }
             }
         }
@@ -82,6 +94,7 @@ const salesCostService ={
         documentoCostoDeVenta.ml=ml;
         documentoCostoDeVenta.quantity = cant;
         documentoCostoDeVenta.IdDocumentoCostoDeVenta = documentoDeVenta.IdDocumentoDeVenta;
+        documentoCostoDeVenta.precioVenta = price;
         // ********   Agrego el documento Costo de Venta a JSON **********
     let cmvStorage = fs.readFileSync("./src/database/cmvJson.json", {
         encoding: "utf-8",
@@ -115,10 +128,12 @@ const salesCostService ={
       let jsonSalesStorageJson = JSON.stringify(jsonSalesStorage); // vuelvo a JSON
       fs.writeFileSync("./src/database/salesJson.json", jsonSalesStorageJson); //SobreEscribo el archivo
       // Termina logica de archivo Json
-        console.log(documentoDeVenta)
-        console.log(documentoCostoDeVenta)
-        
 
+      
+        // console.log(documentoDeVenta)
+        // console.log(documentoCostoDeVenta)
+        
+      return documentoCostoDeVenta, documentoDeVenta;
          
     }
 }

@@ -1,29 +1,47 @@
 const path = require("path");
 const fs = require("fs");
-const costsFilePath = path.join(__dirname, "../dataBase/costsJson.json");
-const recipesFilePath = path.join(__dirname, "../dataBase/recipesJson.json");
-const flavorsFilePath = path.join(__dirname, "../dataBase/flavorsJson.json");
 const salesFilePath = path.join(__dirname, "../dataBase/salesJson.json");
-// const cmvFilePath = path.join(__dirname, "../dataBase/cmvJson.json");
-const sortJSON=require("../xtras/sort")
-let costs = JSON.parse(fs.readFileSync(costsFilePath, "utf-8"));
-let recipes = JSON.parse(fs.readFileSync(recipesFilePath, "utf-8"));
-let flavors = JSON.parse(fs.readFileSync(flavorsFilePath, "utf-8"));
-const sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
+
 
 let resultado = [];
-let recipesAcum ={
+let recipesAcum = {
+  acumByRecipe: (recipeid) => {
+    let sales = JSON.parse(fs.readFileSync(salesFilePath, "utf-8"));
 
-    acumByRecipe: (recipeid)=> {
-          sales;
-         resultado = sales.filter((sales) => sales.recipe == recipeid)
-         resultadoEnCantidades = resultado.length
-       return resultadoEnCantidades;
+    resultado = sales.filter((sales) => sales.recipe == recipeid);
+    resultadoEnCantidades = resultado.length;
+
+    resultado.forEach((element) => {
+      resultadobyrecipes = {
+        recipe: element.recipe,
+        cant: Number(element.ml) * Number(element.quantity),
+      };
+    });
+
+    console.log("console, linea 25 de recipsAcum", resultadobyrecipes);
+    return resultadoEnCantidades;
+  },
+
+  calculateRecipeTotals: (data) => {
+    const recipeTotals = {};
+    data.forEach((item) => {
+      const recipe = item.recipe;
+      const ml = parseFloat(item.ml);
+      const quantity = parseInt(item.quantity);
+
+      if (!isNaN(ml) && !isNaN(quantity)) {
+        if (recipeTotals.hasOwnProperty(recipe)) {
+          recipeTotals[recipe] += ml * quantity;
+        } else {
+          recipeTotals[recipe] = ml * quantity;
+        }
+      }
+    });
+    const recipeTotalsArray = [];
+    for (const recipe in recipeTotals) {
+      recipeTotalsArray.push({ recipe: recipe, total: recipeTotals[recipe] });
     }
-    
-
-}
+    return recipeTotalsArray;
+  },
+};
 module.exports = recipesAcum;
-
-recipesAcum.acumByRecipe('ANANANA');
-//console.log('console log linea 29 de recipesAcum.js: '  + resultadoEnCantidades)
